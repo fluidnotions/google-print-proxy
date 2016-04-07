@@ -1,0 +1,125 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <button id="back" class="btn btn-default" type="button">
+        <em class="glyphicon glyphicon-chevron-left"></em>Printers
+      </button>
+    </div>
+    <div class="col-md-10">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;
+            <span>{{:displayName}}</span>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <li class="list-group-item"><b>Owner:&nbsp;</b>{{:ownerId}}</li>
+            <li class="list-group-item"><b>Status:&nbsp;</b>
+              <span class="label label-{{if connectionStatus === 'ONLINE'}}success{{else}}danger{{/if}}">{{:connectionStatus}}</span>
+            </li>
+            {{if description}}
+            <li class="list-group-item"><b>Description:&nbsp;</b>{{:description}}</li>{{/if}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div id="cloudJobTicketForm" class="form-horizontal">
+          {{if capabilities.printer.color}}
+          <div class="form-group">
+            <label for="color" class="col-sm-4 control-label">Color</label>
+            <div class="col-sm-8">
+              <select id="color" class="selectpicker form-control">
+                {{for capabilities.printer.color.option}}
+                <option value="{{:#index}}">{{:type.toLowerCase().replace('standard_', '')}}</option>
+                {{/for}}
+              </select>
+            </div>
+          </div>
+          {{/if}} {{if isPrinter}}
+          <div class="form-group">
+            <label for="fit_to_page" class="col-sm-4 control-label">Fit to Page</label>
+            <div class="col-sm-8">
+              <select id="fit_to_page" class="selectpicker form-control">
+                <option value="NO_FITTING">No Fitting</option>
+                <option value="SHRINK_TO_PAGE">Shrink to page</option>
+                <option value="GROW_TO_PAGE">Grow to page</option>
+                <option value="FIT_TO_PAGE">Fit to page</option>
+                <option value="FILL_PAGE">Fill page</option>
+              </select>
+            </div>
+          </div>
+          {{/if}} {{if isPrinter}}
+          <div class="form-group">
+            <label for="copies" class="col-sm-4 control-label">Copies</label>
+            <div class="col-sm-8">
+              <input id="copies" type="text" class="form-control" placeholder="{{if capabilities.printer.copies && capabilities.printer.copies.max}} max {{:capabilities.printer.copies.max}}{{/if}}">
+            </div>
+          </div>
+          {{/if}} {{if capabilities.printer.media_size}}
+          <div class="form-group">
+            <label for="media_size" class="col-sm-4 control-label">Paper size</label>
+            <div class="col-sm-8">
+              <select id="media_size" class="selectpicker form-control">
+                {{for capabilities.printer.media_size.option}}
+                <option value="{{:#index}}">{{:custom_display_name}}</option>
+                {{/for}}
+              </select>
+            </div>
+          </div>
+          {{/if}} {{if capabilities.printer.page_orientation}}
+          <div class="form-group">
+            <label for="page_orientation" class="col-sm-4 control-label">Orientation</label>
+            <div class="col-sm-8">
+              <select id="page_orientation" class="selectpicker form-control">
+                {{for capabilities.printer.page_orientation.option}}
+                <option value="{{:#index}}">{{:type.toLowerCase()}}</option>
+                {{/for}}
+              </select>
+            </div>
+          </div>
+          {{/if}}
+          {{if isPrinter}}
+          <div class="form-group">
+            <label for="page_range" class="col-sm-4 control-label">Pages</label>
+            <div class="col-sm-8">
+              <div id="page_range" class="btn-group" data-toggle="buttons">
+                <label id="allTarget" class="btn btn-primary active">
+                  <input type="radio" name="options" id="pagesAll"> All
+                </label>
+                <label id="rangeTarget" class="btn btn-primary">
+                  <input type="radio" name="options" id="pagesRange"> Range
+                </label>
+                <input id="rangeTextInput" type="text" class="form-control" placeholder="e.g.: 1-5, 8, 11-13" style="display:none;">
+              </div>
+            </div>
+          </div>
+          {{/if}} {{if capabilities.printer.dpi}}
+          <div class="form-group">
+            <label for="dpi" class="col-sm-4 control-label">Print quality</label>
+            <div class="col-sm-8">
+              <select id="dpi" class="selectpicker form-control">
+                {{for capabilities.printer.dpi.option}}
+                <option value="{{:#index}}">{{:horizontal_dpi}} dpi</option>
+                {{/for}}
+              </select>
+            </div>
+          </div>
+          {{/if}}
+          {{if isPrinter}}
+          <div class="form-group">
+            <label for="reverse_order" class="col-sm-4 control-label">Reverse order</label>
+            <div class="col-sm-8">
+              <div class="checkbox" style="margin-left:20px;margin-top:5px;">
+                <input id="reverse_order" type="checkbox">
+              </div>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
